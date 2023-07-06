@@ -1,6 +1,7 @@
 package Controller.Helper;
 
 import Model.Usuario;
+import Telas.Cadastro.UsuarioCadastro;
 import Telas.Login;
 
 /**
@@ -11,31 +12,26 @@ import Telas.Login;
 public class LoginHelper {
     
     private final Login view;
+    private final UsuarioCadastro viewCad;
+    
 
     public LoginHelper(Login view) {
         this.view = view;
+        this.viewCad=null;
+    }
+    public LoginHelper(UsuarioCadastro viewCad) {
+        this. viewCad = viewCad;
+        this.view=null;
     }
     
     public Usuario obterLogin(){
         String nome = view.getUsuarioINPUT().getText();
         String senha = view.getSenhaINPUT().getText();
         
-        Usuario login = new Usuario(0, nome, senha);
+        Usuario login = new Usuario(nome, senha);
         
         return login;
     }
-    
-//    public void setLogin(Usuario login){;;
-//        String nome = login.getUsuario();
-//        String senha = login.getSenha();
-//        
-//        view.getUsuarioINPUT().setText(nome);
-//        view.getSenhaINPUT().setText(senha);
-//    }
-//    
-//    public void limpar(){
-//        view.getUsuarioINPUT().setText("");
-//        view.getSenhaINPUT().setText("");
-//    }
+
     
 }

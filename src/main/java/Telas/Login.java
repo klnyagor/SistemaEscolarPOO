@@ -1,7 +1,6 @@
 package Telas;
 
 import Controller.LoginController;
-import Model.Repositorio.Banco;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,7 +20,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         controller = new LoginController(this);
-        Banco.inicia();
     }
 
     /**
@@ -40,6 +38,7 @@ public class Login extends javax.swing.JFrame {
         usuarioINPUT = new javax.swing.JTextField();
         SenhaLabel = new javax.swing.JLabel();
         senhaINPUT = new javax.swing.JPasswordField();
+        Cadastrar = new javax.swing.JButton();
         loginPainel = new javax.swing.JLabel();
         LoginBG = new javax.swing.JLabel();
 
@@ -57,7 +56,7 @@ public class Login extends javax.swing.JFrame {
                 btnFecharActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 90, 50));
+        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 110, 50));
 
         btnLogin.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnLogin.setText("Acessar");
@@ -68,7 +67,7 @@ public class Login extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, 120, 50));
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, 110, 50));
 
         LoginLabel.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         LoginLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,8 +87,6 @@ public class Login extends javax.swing.JFrame {
 
         usuarioINPUT.setBackground(new java.awt.Color(153, 153, 153));
         usuarioINPUT.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        usuarioINPUT.setForeground(new java.awt.Color(0, 0, 0));
-        usuarioINPUT.setText("admin");
         usuarioINPUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usuarioINPUTActionPerformed(evt);
@@ -107,14 +104,23 @@ public class Login extends javax.swing.JFrame {
 
         senhaINPUT.setBackground(new java.awt.Color(153, 153, 153));
         senhaINPUT.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        senhaINPUT.setForeground(new java.awt.Color(0, 0, 0));
-        senhaINPUT.setText("admin");
         senhaINPUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 senhaINPUTActionPerformed(evt);
             }
         });
         getContentPane().add(senhaINPUT, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 320, 50));
+
+        Cadastrar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        Cadastrar.setText("Cadastrar");
+        Cadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Cadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 110, 50));
 
         loginPainel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/painel-login.png"))); // NOI18N
         getContentPane().add(loginPainel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
@@ -131,7 +137,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_usuarioINPUTActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        controller.acessar();
+        String nome = usuarioINPUT.getText();
+        String senha = senhaINPUT.getText();
+        controller.acessar(nome,senha);
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void senhaINPUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaINPUTActionPerformed
@@ -141,6 +150,10 @@ public class Login extends javax.swing.JFrame {
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
+        controller.cadastro();
+    }//GEN-LAST:event_CadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,6 +207,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel LoginBG;
     private javax.swing.JLabel LoginLabel;
     private javax.swing.JLabel SenhaLabel;

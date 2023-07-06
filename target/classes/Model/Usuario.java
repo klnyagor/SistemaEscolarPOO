@@ -5,12 +5,10 @@ package Model;
  * @author Usuário
  */
 public class Usuario {
-    private int id;
     private String usuario;
     private String senha;
 
-    public Usuario(int id, String usuario, String senha) {
-        this.id = id;
+    public Usuario(String usuario, String senha) {
         this.usuario = usuario;
         this.senha = senha;
     }
@@ -31,12 +29,5 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
 }

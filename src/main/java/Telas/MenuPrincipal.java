@@ -11,7 +11,11 @@ import javax.swing.JPanel;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private final MenuPrincipalController controller;
-    
+    public MenuPrincipal(String nome) {
+        initComponents();
+        controller = new MenuPrincipalController(this);
+        NavBar__Usuario.setText(nome);
+    }
     public MenuPrincipal() {
         initComponents();
         controller = new MenuPrincipalController(this);
@@ -31,6 +35,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         PainelCentral = new javax.swing.JPanel();
+        UsuarioLabel = new javax.swing.JLabel();
         PainelBG = new javax.swing.JLabel();
         MenuBG = new javax.swing.JLabel();
         Menu__Navbar = new javax.swing.JMenuBar();
@@ -63,6 +68,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         PainelCentral.setOpaque(false);
         getContentPane().add(PainelCentral, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 800, 600));
+
+        UsuarioLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        UsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        UsuarioLabel.setText("Usuário:");
+        getContentPane().add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
 
         PainelBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/painel.png"))); // NOI18N
         getContentPane().add(PainelBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, -1, -1));
@@ -302,40 +312,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         controller.limparTela();
     }//GEN-LAST:event_NavBar__Matriculas__FecharActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
-    }
     
     public JPanel getPainelCentral() {
         return PainelCentral;
@@ -372,5 +348,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem NavBar__Usuario__Sair;
     private javax.swing.JLabel PainelBG;
     private javax.swing.JPanel PainelCentral;
+    private javax.swing.JLabel UsuarioLabel;
     // End of variables declaration//GEN-END:variables
 }

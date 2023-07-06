@@ -27,11 +27,9 @@ public class UsuarioDAO {
             
             stmt.executeUpdate();
             cadastro = true;
-            JOptionPane.showMessageDialog(null, "Cadastro Efetuado");
             return cadastro;
         } catch (SQLException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ops, algo de errado não está certo..");
             return false;
         } finally {
             postgres.close(stmt, conexao);

@@ -150,9 +150,13 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         String senha = senhaINPUT.getText();
         UsuarioDAO cadastro = new UsuarioDAO();
         if(cadastro.insert(login, senha)){
+            JOptionPane.showMessageDialog(null, "Cadastro Efetuado");
             controller.Login();
             this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Ops, algo de errado não está certo..");
         }
+        
     }//GEN-LAST:event_CadastrarActionPerformed
 
     private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed

@@ -35,7 +35,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         PainelCentral = new javax.swing.JPanel();
-        UsuarioLabel = new javax.swing.JLabel();
         PainelBG = new javax.swing.JLabel();
         MenuBG = new javax.swing.JLabel();
         Menu__Navbar = new javax.swing.JMenuBar();
@@ -68,11 +67,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         PainelCentral.setOpaque(false);
         getContentPane().add(PainelCentral, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 800, 600));
-
-        UsuarioLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        UsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
-        UsuarioLabel.setText("Usuário:");
-        getContentPane().add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
 
         PainelBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/painel.png"))); // NOI18N
         getContentPane().add(PainelBG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, -1, -1));
@@ -348,6 +342,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem NavBar__Usuario__Sair;
     private javax.swing.JLabel PainelBG;
     private javax.swing.JPanel PainelCentral;
-    private javax.swing.JLabel UsuarioLabel;
     // End of variables declaration//GEN-END:variables
 }

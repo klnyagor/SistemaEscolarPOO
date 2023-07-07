@@ -14,7 +14,7 @@ public class UsuarioDAO {
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
-        if(login.trim().isEmpty() || senha.trim().isEmpty()){
+        if(login.isBlank() || senha.isBlank()){
             return false;
         }
         try {
@@ -35,7 +35,7 @@ public class UsuarioDAO {
     }
     
     public boolean update(String login, String senha){
-        if(login.trim().isEmpty() || senha.trim().isEmpty()){
+        if(login.isBlank() || senha.isBlank()){
             return false;
         }
         

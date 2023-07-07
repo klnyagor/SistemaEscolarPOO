@@ -40,12 +40,13 @@ public class AlunoDAO {
     }
     
     public boolean adicionar(Aluno aluno){
+        if(aluno.getNome().isBlank() || aluno.getEndereco().isBlank() || aluno.getTelefone().isBlank() || aluno.getEmail().isBlank()){
+            return false;
+        }
+        
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
-        if(aluno.getNome().trim().isEmpty() || aluno.getEndereco().trim().isEmpty() || aluno.getTelefone().trim().isEmpty() || aluno.getEmail().trim().isEmpty()){
-            return false;
-        }
         
         try {
             conexao = postgres.getConection();
@@ -93,12 +94,14 @@ public class AlunoDAO {
     }
     
     public boolean atualizar(Aluno aluno){
+        if(aluno.getNome().isBlank() || aluno.getEndereco().isBlank() || aluno.getTelefone().isBlank() || aluno.getEmail().isBlank()){
+            return false;
+        }
+        
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
-        if(aluno.getNome().trim().isEmpty() || aluno.getEndereco().trim().isEmpty() || aluno.getTelefone().trim().isEmpty() || aluno.getEmail().trim().isEmpty()){
-            return false;
-        }
+        
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("UPDATE ALUNO SET nome=?, endereco=?, telefone=?, email=? WHERE ID=?");

@@ -40,10 +40,14 @@ public class CursoDAO {
     }
     
     public boolean adicionar(Curso curso) {
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        
+        if(curso.getNome().isBlank() || curso.getDescricao().isBlank()){
+            return false;
+        }
+        
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("INSERT INTO curso (id, nome, descricao, turno) VALUES (?, ?, ?, ?)");
@@ -53,13 +57,13 @@ public class CursoDAO {
             stmt.setString(4, curso.getTurno());
 
             stmt.executeUpdate();
-        
+            
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
@@ -89,10 +93,13 @@ public class CursoDAO {
     }
     
     public boolean atualizar(Curso curso){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        
+        if(curso.getNome().isBlank() || curso.getDescricao().isBlank()){
+            return false;
+        }
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("UPDATE CURSO SET nome=?, descricao=?, turno=? WHERE ID=?");
@@ -102,12 +109,13 @@ public class CursoDAO {
             stmt.setInt(4,curso.getId());
             
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     
     }
@@ -116,19 +124,19 @@ public class CursoDAO {
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
-        boolean retorno = true;
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("DELETE FROM CURSO WHERE ID=?");
             stmt.setInt(1, id);
 
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(null, stmt, conexao);
-            return retorno;
         } 
     }
 }

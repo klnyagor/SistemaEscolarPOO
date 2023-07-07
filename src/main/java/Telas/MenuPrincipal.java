@@ -1,6 +1,7 @@
 package Telas;
 
 import Controller.MenuPrincipalController;
+import Model.Usuario;
 import javax.swing.JPanel;
 
 /**
@@ -11,10 +12,13 @@ import javax.swing.JPanel;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private final MenuPrincipalController controller;
-    public MenuPrincipal(String nome) {
+    private Usuario usuario;
+    
+    public MenuPrincipal(Usuario usuario) {
         initComponents();
         controller = new MenuPrincipalController(this);
-        NavBar__Usuario.setText(nome);
+        this.usuario = usuario;
+        NavBar__Usuario.setText(usuario.getUsuario());
     }
     public MenuPrincipal() {
         initComponents();
@@ -39,6 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         MenuBG = new javax.swing.JLabel();
         Menu__Navbar = new javax.swing.JMenuBar();
         NavBar__Usuario = new javax.swing.JMenu();
+        usuarioEditar = new javax.swing.JMenuItem();
         NavBar__Usuario__Sair = new javax.swing.JMenuItem();
         NavBar__Cursos = new javax.swing.JMenu();
         NavBar__Cursos__Abrir = new javax.swing.JMenuItem();
@@ -80,6 +85,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         NavBar__Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/user.png"))); // NOI18N
         NavBar__Usuario.setText("Usuario");
         NavBar__Usuario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+
+        usuarioEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        usuarioEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/user.png"))); // NOI18N
+        usuarioEditar.setText("Editar");
+        usuarioEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioEditarActionPerformed(evt);
+            }
+        });
+        NavBar__Usuario.add(usuarioEditar);
 
         NavBar__Usuario__Sair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         NavBar__Usuario__Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/imagens/exit.png"))); // NOI18N
@@ -306,6 +321,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         controller.limparTela();
     }//GEN-LAST:event_NavBar__Matriculas__FecharActionPerformed
 
+    private void usuarioEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioEditarActionPerformed
+        UsuarioView userview = new UsuarioView(this, usuario);
+        controller.navegar(userview);
+    }//GEN-LAST:event_usuarioEditarActionPerformed
+
     
     public JPanel getPainelCentral() {
         return PainelCentral;
@@ -342,5 +362,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem NavBar__Usuario__Sair;
     private javax.swing.JLabel PainelBG;
     private javax.swing.JPanel PainelCentral;
+    private javax.swing.JMenuItem usuarioEditar;
     // End of variables declaration//GEN-END:variables
 }

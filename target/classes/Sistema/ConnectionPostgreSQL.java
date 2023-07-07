@@ -16,7 +16,7 @@ public class ConnectionPostgreSQL {
     public ConnectionPostgreSQL() {
         this.url = "jdbc:postgresql://localhost:5432/SistemaEscolar";
         this.user = "postgres";
-        this.password = "9797";
+        this.password = "";
         this.driver = "org.postgresql.Driver";
     }
 

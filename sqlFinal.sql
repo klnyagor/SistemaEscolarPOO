@@ -65,3 +65,8 @@ create table matricula(
 	ref_aluno integer references aluno(id),
 	ref_turma integer references turma(id)
 );
+
+CREATE TABLE Usuario(
+	login varchar(50) primary key,
+	senha varchar(50)
+)

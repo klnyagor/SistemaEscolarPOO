@@ -42,7 +42,9 @@ public class DisciplinaDAO {
     }
     
     public boolean adicionar(Disciplina disciplina) {
-        boolean retorno = true;
+        if(disciplina.getNome().isBlank()){
+            return false;
+        }
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -54,12 +56,13 @@ public class DisciplinaDAO {
             stmt.setInt(3, disciplina.getHora());
 
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
@@ -90,10 +93,13 @@ public class DisciplinaDAO {
     }
     
     public boolean atualizar(Disciplina disciplina){
-        boolean retorno = true;
+        if(disciplina.getNome().isBlank()){
+            return false;
+        }
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("UPDATE DISCIPLINA SET hora=?, nome=? WHERE ID=?");
@@ -102,17 +108,17 @@ public class DisciplinaDAO {
             stmt.setInt(3,disciplina.getId());
                         
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
-            retorno = false;
             e.printStackTrace();
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
     public boolean deletar(int id){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -124,18 +130,18 @@ public class DisciplinaDAO {
             
             stmt = conexao.prepareStatement("DELETE FROM horariosocupados WHERE ref_disc=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
+            
             stmt = conexao.prepareStatement("DELETE FROM DISCIPLINA WHERE ID=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(null, stmt, conexao);
-            return retorno;
         }
     }
     public List<Disciplina> disciplinasAluno(Aluno aluno){

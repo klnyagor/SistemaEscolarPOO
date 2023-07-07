@@ -49,7 +49,10 @@ public class TurmaDAO {
     }
     
     public boolean adicionar(Turma turma){
-        boolean retorno = true;
+        if(turma.getPeriodo().isBlank()){
+            return false;
+        }
+        
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -65,13 +68,12 @@ public class TurmaDAO {
             stmt.setString(6, turma.getPeriodo());
             stmt.setInt(7, turma.getHorario());
             stmt.executeUpdate();
-            
+            return true;
         } catch (SQLException e){
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
@@ -115,7 +117,10 @@ public class TurmaDAO {
     }
     
     public boolean atualizar(Turma turma){
-        boolean retorno = true;
+        if(turma.getPeriodo().isBlank()){
+            return false;
+        }
+        
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -131,17 +136,17 @@ public class TurmaDAO {
             stmt.setInt(7, turma.getId());
             
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e){
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
     public boolean deletar(int id){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -151,12 +156,13 @@ public class TurmaDAO {
             stmt.setInt(1, id);
 
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(null, stmt, conexao);
-            return retorno;
         }
     }
     

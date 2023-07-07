@@ -40,7 +40,9 @@ public class ProfessorDAO {
     }
     
     public boolean adicionar(Professor professor){
-        boolean retorno = true;
+        if(professor.getNome().isBlank() || professor.getEndereco().isBlank() || professor.getTelefone().isBlank() || professor.getEmail().isBlank()){
+            return false;
+        }
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -56,12 +58,12 @@ public class ProfessorDAO {
             stmt.setDouble(6,professor.getSalario());
 
             stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
@@ -92,10 +94,14 @@ public class ProfessorDAO {
     }
     
     public boolean atualizar(Professor professor){
-        boolean retorno = true;
+        if(professor.getNome().isBlank() || professor.getEndereco().isBlank() || professor.getTelefone().isBlank() || professor.getEmail().isBlank()){
+            return false;
+        }
+        
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("UPDATE PROFESSOR SET nome=?, endereco=?, telefone=?, email=?, salario=? WHERE ID=?");
@@ -107,17 +113,17 @@ public class ProfessorDAO {
             stmt.setInt(6,professor.getId());
             
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
     public boolean deletar(int id){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
@@ -126,20 +132,21 @@ public class ProfessorDAO {
             stmt = conexao.prepareStatement("delete from matricula where ref_turma in (select id from turma where turma.ref_prof = ?)");
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            
             stmt = conexao.prepareStatement("delete from turma where ref_prof = ?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.executeUpdate();
+            
             stmt = conexao.prepareStatement("DELETE FROM PROFESSOR WHERE ID=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(null, stmt, conexao);
-            return retorno;
         }
     }
 }

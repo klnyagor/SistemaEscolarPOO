@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 public class UsuarioDAO {
 
@@ -15,8 +14,7 @@ public class UsuarioDAO {
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
-        if(login.compareTo("") == 0 || senha.compareTo("")==0){
-            JOptionPane.showMessageDialog(null, "Ops, algo de errado não está certo..");
+        if(login.trim().isEmpty() || senha.trim().isEmpty()){
             return false;
         }
         try {
@@ -33,6 +31,54 @@ public class UsuarioDAO {
             return false;
         } finally {
             postgres.close(stmt, conexao);
+        }
+    }
+    
+    public boolean update(String login, String senha){
+        if(login.trim().isEmpty() || senha.trim().isEmpty()){
+            return false;
+        }
+        
+        ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
+        PreparedStatement stmt = null;
+        Connection conexao = null;
+        
+        try {
+            conexao = postgres.getConection();
+            stmt = conexao.prepareStatement("UPDATE USUARIO SET senha=? WHERE LOGIN=?");
+            stmt.setString(2, login);
+            stmt.setString(1, senha);
+            
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        } finally {
+            postgres.close(stmt, conexao);
+        }
+        
+    }
+    
+    public boolean delete(Usuario usuario){
+        ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
+        PreparedStatement stmt = null;
+        Connection conexao = null;
+        
+        try{
+            conexao = postgres.getConection();
+            stmt = conexao.prepareStatement("DELETE FROM USUARIO WHERE LOGIN=? AND SENHA=?");
+            stmt.setString(1, usuario.getUsuario());
+            stmt.setString(2, usuario.getSenha());
+            
+            stmt.executeUpdate();
+            
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        } finally{
+            postgres.close(null, stmt, conexao);
         }
     }
 
@@ -54,7 +100,6 @@ public class UsuarioDAO {
             }
         } catch (SQLException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ops, algo de errado não está certo..");
         } finally {
             postgres.close(stmt, conexao);
         }

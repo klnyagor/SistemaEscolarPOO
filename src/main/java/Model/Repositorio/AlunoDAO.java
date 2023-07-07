@@ -40,10 +40,12 @@ public class AlunoDAO {
     }
     
     public boolean adicionar(Aluno aluno){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        if(aluno.getNome().trim().isEmpty() || aluno.getEndereco().trim().isEmpty() || aluno.getTelefone().trim().isEmpty() || aluno.getEmail().trim().isEmpty()){
+            return false;
+        }
         
         try {
             conexao = postgres.getConection();
@@ -55,12 +57,12 @@ public class AlunoDAO {
             stmt.setString(5, aluno.getEmail());
 
             stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
@@ -91,10 +93,12 @@ public class AlunoDAO {
     }
     
     public boolean atualizar(Aluno aluno){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
+        if(aluno.getNome().trim().isEmpty() || aluno.getEndereco().trim().isEmpty() || aluno.getTelefone().trim().isEmpty() || aluno.getEmail().trim().isEmpty()){
+            return false;
+        }
         try {
             conexao = postgres.getConection();
             stmt = conexao.prepareStatement("UPDATE ALUNO SET nome=?, endereco=?, telefone=?, email=? WHERE ID=?");
@@ -105,47 +109,45 @@ public class AlunoDAO {
             stmt.setInt(5,aluno.getId());
             
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(stmt, conexao);
-            return retorno;
         }
     }
     
     public boolean deletar(int id){
-        boolean retorno = true;
         ConnectionPostgreSQL postgres = new ConnectionPostgreSQL();
         PreparedStatement stmt = null;
         Connection conexao = null;
         try {
             conexao = postgres.getConection();
-            conexao = postgres.getConection();
             stmt = conexao.prepareStatement("DELETE FROM horariosocupados WHERE ref_aluno=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
+            
             stmt = conexao.prepareStatement("DELETE FROM notas WHERE ref_aluno=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
-            stmt.executeUpdate();
+            
             stmt = conexao.prepareStatement("DELETE FROM matricula WHERE ref_aluno=?");
             stmt.setInt(1, id);
-
             stmt.executeUpdate();
-            conexao = postgres.getConection();
+            
             stmt = conexao.prepareStatement("DELETE FROM ALUNO WHERE id=?");
             stmt.setInt(1, id);
 
             stmt.executeUpdate();
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            retorno = false;
+            return false;
         } finally {
             postgres.close(null, stmt, conexao);
-            return retorno;
         }
     }
 }

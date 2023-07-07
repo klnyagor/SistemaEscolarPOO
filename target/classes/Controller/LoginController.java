@@ -35,7 +35,7 @@ public class LoginController {
         UsuarioDAO userDAO = new UsuarioDAO();
         Usuario login = userDAO.selectPorNomeESenha(nome, senha);
         if(login != null ){
-            MenuPrincipal menu = new MenuPrincipal(nome);
+            MenuPrincipal menu = new MenuPrincipal(login);
             menu.setVisible(true);
             view.dispose();
         }else{
